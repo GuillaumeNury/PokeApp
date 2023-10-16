@@ -1,0 +1,76 @@
+<div class="paper wrapper">
+  <nav class="border split-nav">
+    <div class="nav-brand">
+      <h3><a href="#">LuPoké</a></h3>
+    </div>
+    <div class="collapsible">
+      <input id="collapsible1" type="checkbox" name="collapsible1" />
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+      <div class="collapsible-body">
+        <ul class="inline">
+          @for(lang of languages$ | async; track lang) {
+          <li>
+            <button
+              class="btn-small"
+              [class.btn-primary]="lang === selectedLang"
+              (click)="selectedLang = lang"
+            >
+              {{ lang }}
+            </button>
+          </li>
+          }
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container-lg">
+    <div class="form-group">
+      <input
+        class="input-block"
+        type="text"
+        id="pokeSearch"
+        placeholder="Search..."
+      />
+    </div>
+
+    <ul class="type-list">
+      @for(type of pokemonTypes$ | async; track type) {
+      <li>
+        <button
+          class="btn-small"
+          [class.btn-primary]="type.id === selectedType?.id"
+          (click)="selectedType = type.id === selectedType?.id ? null : type"
+        >
+          {{ type.name }}
+        </button>
+      </li>
+      }
+    </ul>
+
+    @if(pokemons$ | async; as pokemons) {
+    <div>
+      <h2>Pokémons ({{ pokemons.count }})</h2>
+
+      <ul class="pokemon-list">
+        @for(pokemon of pokemons.items; track pokemon.id) {
+        <li>
+          <img [src]="pokemon.image" [alt]="pokemon.name + '\'s picture'" />
+          {{ pokemon.name }}
+        </li>
+        }
+      </ul>
+
+      <div class="load-more">
+        @if(pokemons.items.length !== pokemons.count) {
+        <button>Afficher plus</button>
+        }
+      </div>
+    </div>
+    }
+  </main>
+</div>
