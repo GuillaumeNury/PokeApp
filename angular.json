@@ -62,10 +62,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "poke-app:build:production"
+              "buildTarget": "poke-app:build:production"
             },
             "development": {
-              "browserTarget": "poke-app:build:development"
+              "buildTarget": "poke-app:build:development"
             }
           },
           "options": {
